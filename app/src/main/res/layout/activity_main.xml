@@ -1,19 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--
+    TODO: changer le style des boutons
+    @see https://stackoverflow.com/questions/6054562/how-to-make-the-corners-of-a-button-round
+    @see https://developer.android.com/develop/ui/views/theming/themes?hl=fr
+    -->
+
+    <Button
+        android:id="@+id/btnMoreRed"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="+Rouge"
+        app:layout_constraintBottom_toTopOf="@+id/btnMoreGreen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnLessRed" />
+
+    <Button
+        android:id="@+id/btnLessRed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="-Rouge"
+        app:layout_constraintBottom_toTopOf="@+id/btnLessGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMoreRed" />
+
+    <Button
+        android:id="@+id/btnMoreGreen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="+Vert"
+        app:layout_constraintBottom_toTopOf="@+id/btnMoreBlue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnLessGreen" />
+
+    <Button
+        android:id="@+id/btnLessGreen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="-Vert"
+        app:layout_constraintBottom_toTopOf="@+id/btnLessBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMoreGreen" />
+
+    <Button
+        android:id="@+id/btnMoreBlue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="+Bleu"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnLessBlue" />
+
+    <Button
+        android:id="@+id/btnLessBlue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="-Bleu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMoreBlue" />
+
+    <Button
+        android:id="@+id/btnColor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/btnLessRed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
