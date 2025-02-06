@@ -1,0 +1,10 @@
+Sur les machines de l'IUT, pour permettre à IntelliJ d'installer des plugins (et notamment JUnit), il faut configurer le proxy :
+
+Menu "File" → "Settings..."
+Dans la barre de rechercher, taper "proxy".
+
+Cocher "Manual proxy configuration", et mettre :
+- Host name: proxy.iut-orsay.fr
+- Port number: 3128
+
+Cliquer sur "Apply" puis "OK".
