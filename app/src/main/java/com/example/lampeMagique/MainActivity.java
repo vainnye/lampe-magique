@@ -15,9 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private int red = 255;
-    private int green = 000;
-    private int blue = 000;
+    private RgbColor couleurLampe = new RgbColor(255, 0, 0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,35 +28,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //      Button lamp = findViewById(R.id.btnLampe);
-//        lamp.setBackgroundColor(Color.BLACK);
-//        lamp.setOnClickListener(this);
-//        findViewById(R.id.btnMoreRed).setOnClickListener(this);
-//        findViewById(R.id.btnLessRed).setOnClickListener(this);
-//        findViewById(R.id.btnMoreGreen).setOnClickListener(this);
-//        findViewById(R.id.btnLessGreen).setOnClickListener(this);
-//        findViewById(R.id.btnMoreBlue).setOnClickListener(this);
-//        findViewById(R.id.btnLessBlue).setOnClickListener(this);
+        Button lamp = findViewById(R.id.btnLampe);
+
+        lamp.setBackgroundColor(couleurLampe.toColor());
+        lamp.setOnClickListener(this);
+
+        findViewById(R.id.btnMoreRed).setOnClickListener(this);
+        findViewById(R.id.btnLessRed).setOnClickListener(this);
+        findViewById(R.id.btnMoreGreen).setOnClickListener(this);
+        findViewById(R.id.btnLessGreen).setOnClickListener(this);
+        findViewById(R.id.btnMoreBlue).setOnClickListener(this);
+        findViewById(R.id.btnLessBlue).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        Color.rgb(red, blue, green);
-        findViewById(R.id.btnLessBlue).setBackgroundColor(Color.rgb(10, 10,10));
-//        int color;
-//        Button btnLampe = findViewById(R.id.btnLampe);
-//        Drawable background = btnLampe.getBackground();
-//        if (background instanceof ColorDrawable) {
-//            color = ((ColorDrawable) background).getColor();
-//            btnLampe.setBackgroundColor(color);
-//        }
-//        else throw new Error("pas de background");
-//
-//        switch (v.getId()) {
-//            case R.id.btnLampe:
-//        }
+
+        int color;
+        Button btnLampe = findViewById(R.id.btnLampe);
+
+        int colorGap = 15;
+
+        if (v.getId() == R.id.btnMoreRed)
+            couleurLampe.addRed(colorGap);
+        else if (v.getId() == R.id.btnLessRed)
+            couleurLampe.rmvRed(colorGap);
+        else if (v.getId() == R.id.btnMoreGreen)
+            couleurLampe.addGreen(colorGap);
+        else if (v.getId() == R.id.btnLessGreen)
+            couleurLampe.rmvGreen(colorGap);
+        else if (v.getId() == R.id.btnMoreBlue)
+            couleurLampe.addBlue(colorGap);
+        else if (v.getId() == R.id.btnLessBlue)
+            couleurLampe.rmvBlue(colorGap);
+
+        btnLampe.setBackgroundColor(couleurLampe.toColor());
     }
 
 
-    private static
+
 }
