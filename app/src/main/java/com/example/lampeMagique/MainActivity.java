@@ -8,14 +8,20 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.MessageFormat;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private RgbColor couleurLampe = new RgbColor(255, 0, 0);
+    public static String K_SAVED_COLOR = "K_SAVED_COLOR";
+    private RgbColor couleurLampe = new RgbColor(0, 0, 0);
+
+    private String texteLampe() { return "R:"+couleurLampe.red()+" G:"+couleurLampe.green()+" B:"+couleurLampe.blue(); }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         Button lamp = findViewById(R.id.btnLampe);
 
+
+        if (savedInstanceState != null) {
+            couleurLampe = (RgbColor) savedInstanceState.getSerializable(K_SAVED_COLOR);
+        }
         lamp.setBackgroundColor(couleurLampe.toColor());
+        lamp.setText(this.texteLampe());
         lamp.setOnClickListener(this);
 
         findViewById(R.id.btnMoreRed).setOnClickListener(this);
@@ -47,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int color;
         Button btnLampe = findViewById(R.id.btnLampe);
 
-        int colorGap = 15;
+        int colorGap = 16;
 
         if (v.getId() == R.id.btnMoreRed)
             couleurLampe.addRed(colorGap);
@@ -63,8 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             couleurLampe.rmvBlue(colorGap);
 
         btnLampe.setBackgroundColor(couleurLampe.toColor());
+        btnLampe.setText(this.texteLampe());
+        if(couleurLampe.getLuminance() < 0.5)
+            btnLampe.setTextColor(Color.WHITE);
+        else
+            btnLampe.setTextColor(Color.BLACK);
     }
 
 
-
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(K_SAVED_COLOR, couleurLampe);
+    }
 }

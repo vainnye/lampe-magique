@@ -2,25 +2,26 @@ package com.example.lampeMagique;
 
 import android.graphics.Color;
 
+import java.io.Serializable;
 import java.security.InvalidParameterException;
 
 import kotlin.NotImplementedError;
 
-public class RgbColor {
+public class RgbColor implements Serializable {
     private int red;
     private int green;
     private int blue;
-
+    
     private enum COMPS {
-        RED,
-        GREEN,
-        BLUE
+        RED, GREEN, BLUE;
+        public static final int MAX = 255;
+        public static final int MIN = 0;
     }
 
     public RgbColor() {
-        red = 255;
-        green = 255;
-        blue = 255;
+        red = COMPS.MAX;
+        green = COMPS.MAX;
+        blue = COMPS.MAX;
     }
 
     public RgbColor(int red, int blue, int green) {
@@ -39,8 +40,8 @@ public class RgbColor {
     }
 
     private void setComponent(COMPS c, int value) {
-        if(value>255 || value<0)
-            throw new InvalidParameterException("int red must be between 0 and 255");
+        if(value>COMPS.MAX || value<COMPS.MIN)
+            throw new InvalidParameterException("int "+c.name()+" must be between "+COMPS.MIN+" and "+COMPS.MAX);
         switch (c) {
             case RED: this.red = value; break;
             case GREEN: this.green = value; break;
@@ -49,29 +50,38 @@ public class RgbColor {
         }
     }
 
+    public int red() { return red; }
+    public int green() { return green; }
+    public int blue() { return blue; }
+
     public void setRed(int red) { setComponent(COMPS.RED, red); }
     public void setGreen(int green) { setComponent(COMPS.GREEN, green); }
     public void setBlue(int blue) { setComponent(COMPS.BLUE, blue); }
 
-    private Boolean addComponent(COMPS c, int value) {
-        try {
-            setComponent(c, getComponent(c)+value);
-            return true;
-        }
-        catch (Exception e) {
-            return false;
-        }
+    private void addComponent(COMPS c, int value) {
+        if(value+getComponent(c) > COMPS.MAX)
+            value = COMPS.MAX;
+        else if(value+getComponent(c) < COMPS.MIN)
+            value = COMPS.MIN;
+        else
+            value = getComponent(c)+value;
+
+        setComponent(c, value);
     }
 
-    public Boolean addRed(int red) { return addComponent(COMPS.RED, red); }
-    public Boolean addGreen(int green) { return addComponent(COMPS.GREEN, green); }
-    public Boolean addBlue(int blue) { return addComponent(COMPS.BLUE, blue); }
-    public Boolean rmvRed(int red) { return addComponent(COMPS.RED, -red); }
-    public Boolean rmvGreen(int green) { return addComponent(COMPS.GREEN, -green); }
-    public Boolean rmvBlue(int blue) { return addComponent(COMPS.BLUE, -blue); }
+    public void addRed(int red) { addComponent(COMPS.RED, red); }
+    public void addGreen(int green) { addComponent(COMPS.GREEN, green); }
+    public void addBlue(int blue) { addComponent(COMPS.BLUE, blue); }
+    public void rmvRed(int red) { addComponent(COMPS.RED, -red); }
+    public void rmvGreen(int green) { addComponent(COMPS.GREEN, -green); }
+    public void rmvBlue(int blue) { addComponent(COMPS.BLUE, -blue); }
 
 
     public int toColor() {
-        return Color.rgb(red, blue, green);
+        return Color.rgb(red, green, blue);
+    }
+
+    public double getLuminance() {
+        return (red*0.3 + green*0.59 + blue*0.11)/COMPS.MAX;
     }
 }

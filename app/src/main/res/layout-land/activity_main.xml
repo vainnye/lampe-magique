@@ -8,23 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--
-    TODO: changer le style des boutons
-    @see https://stackoverflow.com/questions/6054562/how-to-make-the-corners-of-a-button-round
-    @see https://developer.android.com/develop/ui/views/theming/themes?hl=fr
-    -->
-
     <Button
         android:id="@+id/btnLampe"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="@color/black"
-        app:layout_constraintVertical_weight="3"
-        app:layout_constraintBottom_toTopOf="@id/btnLessRed"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnLessGreen"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="2" />
 
     <Button
         android:id="@+id/btnMoreRed"
@@ -33,11 +27,11 @@
         android:layout_height="0dp"
         android:backgroundTint="@color/red"
         android:text="+Rouge"
-        app:layout_constraintBottom_toTopOf="@id/btnMoreGreen"
+        app:layout_constraintBottom_toTopOf="@+id/btnMoreGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnLessRed"
-        app:layout_constraintTop_toBottomOf="@id/btnLampe"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="1" />
 
     <Button
         android:id="@+id/btnLessRed"
@@ -46,11 +40,11 @@
         android:layout_height="0dp"
         android:backgroundTint="@color/red"
         android:text="-Rouge"
+        app:layout_constraintBottom_toTopOf="@+id/btnLessGreen"
+        app:layout_constraintStart_toEndOf="@+id/btnLampe"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnMoreRed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnLessGreen"
-        app:layout_constraintTop_toBottomOf="@id/btnLampe"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintHorizontal_weight="1" />
 
     <Button
         android:id="@+id/btnMoreGreen"
@@ -59,11 +53,11 @@
         android:layout_height="0dp"
         android:backgroundTint="@color/green"
         android:text="+Vert"
-        app:layout_constraintStart_toEndOf="@id/btnLessGreen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnMoreBlue"
+        app:layout_constraintStart_toEndOf="@+id/btnLessGreen"
         app:layout_constraintTop_toBottomOf="@id/btnMoreRed"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintBottom_toTopOf="@id/btnMoreBlue"
+        app:layout_constraintHorizontal_weight="1"/>
 
     <Button
         android:id="@+id/btnLessGreen"
@@ -72,11 +66,11 @@
         android:layout_height="0dp"
         android:backgroundTint="@color/green"
         android:text="-Vert"
-        app:layout_constraintBottom_toTopOf="@id/btnLessBlue"
-        app:layout_constraintEnd_toStartOf="@+id/btnMoreGreen"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnLampe"
         app:layout_constraintTop_toBottomOf="@id/btnLessRed"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintBottom_toTopOf="@id/btnLessBlue"
+        app:layout_constraintEnd_toStartOf="@id/btnMoreGreen"
+        app:layout_constraintHorizontal_weight="1"/>
 
     <Button
         android:id="@+id/btnMoreBlue"
@@ -88,8 +82,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnLessBlue"
-        app:layout_constraintTop_toBottomOf="@id/btnMoreGreen"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMoreGreen"
+        app:layout_constraintHorizontal_weight="1"/>
 
     <Button
         android:id="@+id/btnLessBlue"
@@ -98,9 +92,9 @@
         android:layout_height="0dp"
         android:backgroundTint="@color/blue"
         android:text="-Bleu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnMoreBlue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLessGreen"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintStart_toEndOf="@+id/btnLampe"
+        app:layout_constraintTop_toBottomOf="@+id/btnLessGreen"
+        app:layout_constraintEnd_toStartOf="@id/btnMoreBlue"
+        app:layout_constraintHorizontal_weight="1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
