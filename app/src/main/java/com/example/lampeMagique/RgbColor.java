@@ -23,11 +23,23 @@ public class RgbColor implements Serializable {
         green = COMPS.MAX;
         blue = COMPS.MAX;
     }
-
     public RgbColor(int red, int blue, int green) {
-        setRed(red);
-        setGreen(green);
-        setBlue(blue);
+        setColor(Color.rgb(red, green, blue));
+    }
+    public RgbColor(int color) {
+        setColor(color);
+    }
+    public RgbColor(String colorString) {
+        setColor(Color.parseColor(colorString));
+    }
+    public RgbColor(float hue, float sat, float val) {
+        setColor(Color.HSVToColor( new float[]{hue, sat, val} ));
+    }
+
+    public void setColor(int color) {
+        setRed(Color.red(color));
+        setGreen(Color.green(color));
+        setBlue(Color.blue(color));
     }
 
     private int getComponent(COMPS c) {
@@ -82,6 +94,6 @@ public class RgbColor implements Serializable {
     }
 
     public double getLuminance() {
-        return (red*0.3 + green*0.59 + blue*0.11)/COMPS.MAX;
+        return Color.luminance(toColor());
     }
 }

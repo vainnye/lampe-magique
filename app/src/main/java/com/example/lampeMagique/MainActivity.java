@@ -1,8 +1,6 @@
 package com.example.lampeMagique;
 
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import java.text.MessageFormat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -75,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnLampe.setBackgroundColor(couleurLampe.toColor());
         btnLampe.setText(this.texteLampe());
-        if(couleurLampe.getLuminance() < 0.5)
+        if(couleurLampe.getLuminance() <= 0.5)
             btnLampe.setTextColor(Color.WHITE);
         else
             btnLampe.setTextColor(Color.BLACK);

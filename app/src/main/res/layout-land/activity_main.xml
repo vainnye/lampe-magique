@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnLessGreen"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_weight="2" />
+        app:layout_constraintHorizontal_weight="1" />
 
     <Button
         android:id="@+id/btnMoreRed"
@@ -44,6 +44,7 @@
         app:layout_constraintStart_toEndOf="@+id/btnLampe"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnMoreRed"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintHorizontal_weight="1" />
 
     <Button
@@ -57,7 +58,7 @@
         app:layout_constraintStart_toEndOf="@+id/btnLessGreen"
         app:layout_constraintTop_toBottomOf="@id/btnMoreRed"
         app:layout_constraintBottom_toTopOf="@id/btnMoreBlue"
-        app:layout_constraintHorizontal_weight="1"/>
+        app:layout_constraintDimensionRatio="1" />
 
     <Button
         android:id="@+id/btnLessGreen"
@@ -70,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@id/btnLessRed"
         app:layout_constraintBottom_toTopOf="@id/btnLessBlue"
         app:layout_constraintEnd_toStartOf="@id/btnMoreGreen"
-        app:layout_constraintHorizontal_weight="1"/>
+        app:layout_constraintDimensionRatio="1" />
 
     <Button
         android:id="@+id/btnMoreBlue"
@@ -83,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnLessBlue"
         app:layout_constraintTop_toBottomOf="@+id/btnMoreGreen"
-        app:layout_constraintHorizontal_weight="1"/>
+        app:layout_constraintDimensionRatio="1" />
 
     <Button
         android:id="@+id/btnLessBlue"
@@ -96,5 +97,5 @@
         app:layout_constraintStart_toEndOf="@+id/btnLampe"
         app:layout_constraintTop_toBottomOf="@+id/btnLessGreen"
         app:layout_constraintEnd_toStartOf="@id/btnMoreBlue"
-        app:layout_constraintHorizontal_weight="1" />
+        app:layout_constraintDimensionRatio="1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
