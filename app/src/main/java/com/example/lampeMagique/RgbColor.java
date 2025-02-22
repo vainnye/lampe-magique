@@ -1,13 +1,17 @@
 package com.example.lampeMagique;
 
 import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import java.io.Serializable;
+
+import androidx.annotation.NonNull;
+
 import java.security.InvalidParameterException;
 
 import kotlin.NotImplementedError;
 
-public class RgbColor implements Serializable {
+public class RgbColor implements Parcelable {
     private int red;
     private int green;
     private int blue;
@@ -36,13 +40,43 @@ public class RgbColor implements Serializable {
         setColor(Color.HSVToColor( new float[]{hue, sat, val} ));
     }
 
+    protected RgbColor(Parcel in) {
+        red = in.readInt();
+        green = in.readInt();
+        blue = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(red);
+        dest.writeInt(green);
+        dest.writeInt(blue);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<RgbColor> CREATOR = new Creator<RgbColor>() {
+        @Override
+        public RgbColor createFromParcel(Parcel in) {
+            return new RgbColor(in);
+        }
+
+        @Override
+        public RgbColor[] newArray(int size) {
+            return new RgbColor[size];
+        }
+    };
+
     public void setColor(int color) {
         setRed(Color.red(color));
         setGreen(Color.green(color));
         setBlue(Color.blue(color));
     }
 
-    private int getComponent(COMPS c) {
+    private int getComponent(@NonNull COMPS c) {
         switch (c) {
             case RED: return this.red;
             case GREEN: return this.green;
@@ -89,11 +123,11 @@ public class RgbColor implements Serializable {
     public void rmvBlue(int blue) { addComponent(COMPS.BLUE, -blue); }
 
 
-    public int toColor() {
+    public int toIntColor() {
         return Color.rgb(red, green, blue);
     }
 
     public double getLuminance() {
-        return Color.luminance(toColor());
+        return Color.luminance(toIntColor());
     }
 }
