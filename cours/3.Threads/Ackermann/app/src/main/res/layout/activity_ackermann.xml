@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AckermannActivity">
+
+    <TextView
+        android:id="@+id/wp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="@string/wp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/l"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <EditText
+        android:id="@+id/l"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="3"
+        app:layout_constraintBottom_toTopOf="@id/ack"
+        app:layout_constraintEnd_toStartOf="@id/plus"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <FrameLayout
+        android:id="@+id/plus"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/ack"
+        app:layout_constraintEnd_toStartOf="@id/r"
+        app:layout_constraintStart_toEndOf="@id/l"
+        app:layout_constraintTop_toBottomOf="@id/wp" />
+
+    <EditText
+        android:id="@+id/r"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="9"
+        app:layout_constraintBottom_toTopOf="@id/ack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/plus"
+        app:layout_constraintTop_toBottomOf="@id/wp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/ack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ackermann"
+        app:layout_constraintBottom_toTopOf="@id/tDevice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/l"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calcul par la tablette : "
+        app:layout_constraintEnd_toStartOf="@id/resDevice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ack"
+        app:layout_constraintBottom_toTopOf="@id/tServer"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/resDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/tDevice"
+        app:layout_constraintTop_toBottomOf="@+id/ack"
+        app:layout_constraintBottom_toTopOf="@id/tServer"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tServer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calcul par le serveur : "
+        app:layout_constraintEnd_toStartOf="@id/resDevice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tDevice"
+        app:layout_constraintBottom_toTopOf="@id/stopDevice"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/resServer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/tServer"
+        app:layout_constraintTop_toBottomOf="@+id/resDevice"
+        app:layout_constraintBottom_toTopOf="@id/stopDevice"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/stopDevice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="1"
+        android:text="Arrêter le calcul sur la tablette"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/stopServer"
+        app:layout_constraintTop_toBottomOf="@+id/tServer"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/stopServer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="1"
+        android:text="Arrêter le calcul sur le serveur"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stopDevice"
+        app:layout_constraintTop_toBottomOf="@+id/tServer"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

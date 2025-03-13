@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Ackermann</string>
+    <string name="wp"><a href="https://fr.wikipedia.org/wiki/Fonction_d%27Ackermann">Page wikipédia</a></string>
+</resources>

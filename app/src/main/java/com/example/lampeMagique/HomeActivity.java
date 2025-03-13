@@ -5,18 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import java.io.Console;
-import java.io.Serializable;
-
-import kotlin.jvm.internal.Reflection;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,17 +16,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         Dbg.logMethod();
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        findViewById(R.id.btnRed).setOnClickListener(this);
-        findViewById(R.id.btnGreen).setOnClickListener(this);
-        findViewById(R.id.btnBlue).setOnClickListener(this);
+        ActivityUtil.initWindowMode(this);
+
+        Button btn;
+        for(int id : new int[]{R.id.btnRed, R.id.btnGreen, R.id.btnBlue}) {
+            btn = findViewById(id);
+            btn.setOnClickListener(this);
+            int color =Color.WHITE;
+            if(id == R.id.btnRed){
+                color = Color.RED;
+            } else if(id == R.id.btnGreen) {
+                color = Color.GREEN;
+            } else if(id == R.id.btnBlue) {
+                color = Color.BLUE;
+            }
+            btn.setTextColor(RgbColor.textColorToContrast(color));
+        }
     }
 
     @Override

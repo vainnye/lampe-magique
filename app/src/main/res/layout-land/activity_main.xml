@@ -3,99 +3,141 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnLampe"
-        style="@style/Widget.MaterialComponents.Button"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lampeLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/black"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnLessGreen"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_weight="1" />
+        app:layout_constraintEnd_toStartOf="@id/buttonsLayout"
+        android:weightSum="3"
+        android:padding="20dp">
 
-    <Button
-        android:id="@+id/btnMoreRed"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/red"
-        android:text="+Rouge"
-        app:layout_constraintBottom_toTopOf="@+id/btnMoreGreen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnLessRed"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_weight="1" />
+        <Button
+            android:id="@+id/btnLampe"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/spaceBottom"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spaceTop"
+            app:layout_constraintVertical_weight="20"/>
 
-    <Button
-        android:id="@+id/btnLessRed"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/red"
-        android:text="-Rouge"
-        app:layout_constraintBottom_toTopOf="@+id/btnLessGreen"
-        app:layout_constraintStart_toEndOf="@+id/btnLampe"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnMoreRed"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintHorizontal_weight="1" />
+        <Space
+            android:id="@+id/spaceTop"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btnLampe"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_weight="1"/>
+        <Space
+            android:id="@+id/spaceBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLampe"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_weight="1"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btnMoreGreen"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/green"
-        android:text="+Vert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnLessGreen"
-        app:layout_constraintTop_toBottomOf="@id/btnMoreRed"
-        app:layout_constraintBottom_toTopOf="@id/btnMoreBlue"
-        app:layout_constraintDimensionRatio="1" />
-
-    <Button
-        android:id="@+id/btnLessGreen"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/green"
-        android:text="-Vert"
-        app:layout_constraintStart_toEndOf="@+id/btnLampe"
-        app:layout_constraintTop_toBottomOf="@id/btnLessRed"
-        app:layout_constraintBottom_toTopOf="@id/btnLessBlue"
-        app:layout_constraintEnd_toStartOf="@id/btnMoreGreen"
-        app:layout_constraintDimensionRatio="1" />
-
-    <Button
-        android:id="@+id/btnMoreBlue"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/blue"
-        android:text="+Bleu"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnLessBlue"
-        app:layout_constraintTop_toBottomOf="@+id/btnMoreGreen"
-        app:layout_constraintDimensionRatio="1" />
+        app:layout_constraintStart_toEndOf="@id/lampeLayout"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btnLessBlue"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/blue"
-        android:text="-Bleu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnLampe"
-        app:layout_constraintTop_toBottomOf="@+id/btnLessGreen"
-        app:layout_constraintEnd_toStartOf="@id/btnMoreBlue"
-        app:layout_constraintDimensionRatio="1" />
+        <Button
+            android:id="@+id/btnMoreRed"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/red"
+            android:text="+Rouge"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintBottom_toTopOf="@+id/btnMoreGreen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/btnLessRed"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnLessRed"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/red"
+            android:text="-Rouge"
+            app:layout_constraintBottom_toTopOf="@id/btnLessGreen"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toStartOf="@id/btnMoreRed"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnMoreGreen"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/green"
+            android:text="+Vert"
+            app:layout_constraintBottom_toTopOf="@id/btnMoreBlue"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnLessGreen"
+            app:layout_constraintTop_toBottomOf="@id/btnMoreRed" />
+
+        <Button
+            android:id="@+id/btnLessGreen"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/green"
+            android:text="-Vert"
+            app:layout_constraintBottom_toTopOf="@id/btnLessBlue"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toStartOf="@id/btnMoreGreen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLessRed" />
+
+        <Button
+            android:id="@+id/btnMoreBlue"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/blue"
+            android:text="+Bleu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnLessBlue"
+            app:layout_constraintTop_toBottomOf="@+id/btnMoreGreen" />
+
+        <Button
+            android:id="@+id/btnLessBlue"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/blue"
+            android:text="-Bleu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toStartOf="@id/btnMoreBlue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLessGreen" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -130,4 +130,16 @@ public class RgbColor implements Parcelable {
     public double getLuminance() {
         return Color.luminance(toIntColor());
     }
+
+    public static int textColorToContrast(int color) {
+        if(Color.luminance(color) <= 0.5)
+            return Color.WHITE;
+        else
+            return Color.BLACK;
+    }
+
+    @NonNull
+    public String toString() {
+        return "R:"+red+" G:"+green+" B:"+blue;
+    }
 }

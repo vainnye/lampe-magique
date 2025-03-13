@@ -22,17 +22,30 @@ public class Dbg {
 
     public static String getClassName()
     {
-        return getClassName(1);
+        return getClassName(2);
+    }
+
+    public static String getSimpleClassName(final int depth) {
+        String fullClazz = getClassName(depth);
+        String[] names = fullClazz.split("\\.");
+        return names[names.length-1];
+    }
+    public static String getSimpleClassName() {
+        return getSimpleClassName(2);
     }
 
     public static void logMethod() {
-        String fullClazz = getClassName(1);
-
-        String[] names = fullClazz.split("\\.");
-        String clazz = names[names.length-1];
-
+        String fullClazz = getClassName();
+        String clazz = getSimpleClassName(2);
         String method = getMethodName(1);
 
         Log.i(clazz, method+"() \tof \t"+fullClazz);
+    }
+
+    public static void logInMethod(String message) {
+        String clazz = getSimpleClassName(2);
+        String method = getMethodName(1);
+
+        Log.i(clazz+"."+method+"()", "msg: "+message);
     }
 }
