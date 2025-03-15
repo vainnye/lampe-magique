@@ -2,15 +2,24 @@ package com.example.lampeMagique;
 
 import static com.example.lampeMagique.Util.returnNotNull;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
@@ -31,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RgbColor lampColorOnExitAnimation;
     private volatile int animationStateAtTheEnd;
     private String texteLampe() { return "R:"+couleurLampe.red()+" G:"+couleurLampe.green()+" B:"+couleurLampe.blue(); }
-    private Thread threadAnimation;
+    private ThreadAnimation threadAnimation;
+    private OneTimeServerThread serverThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         Dbg.logMethod();
         super.onSaveInstanceState(outState);
+        if(serverThread != null){
+            serverThread.interrupt();
+            serverThread = null;
+        }
         if(threadAnimation != null) {
             interrompreAnimation();
             outState.putParcelable(K_SAVED_COULEUR_AVANT_ANIMATION, lampColorBeforeAnimation);
@@ -167,6 +181,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lampe.setBackgroundColor(nouvCouleur);
         lampe.setText(texteLampe());
         lampe.setTextColor(RgbColor.textColorToContrast(nouvCouleur));
+        if(serverThread != null) serverThread.interrupt();
+        serverThread = new OneTimeServerThread(couleurLampe.red(), couleurLampe.green(), couleurLampe.blue());
+        serverThread.start();
     }
 
     @Override
@@ -213,7 +230,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private class ThreadAnimation extends Thread {
         private RgbColor couleurInitiale;
         private int animationState;
-        private static final int MAX_DEG_HUE = 360;
+        private static final int MAX_DEG_HUE = 720;
+        private static final int MILLIS_DELAY = 35;
 
         public ThreadAnimation(RgbColor couleurLampe) {
             this.couleurInitiale = couleurLampe;
@@ -238,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int couleurTemp = Color.HSVToColor(new float[]{(hsv[0]+i)%360, hsv[1], hsv[2]});
                 handleChangeCouleurLampe(couleurTemp);
                 try {
-                    Thread.sleep(60);
+                    Thread.sleep(MILLIS_DELAY);
                 } catch (InterruptedException e) {
                     interrupt();
                     Dbg.logInMethod("thread d'animation interrompu durant Thread.sleep()");
