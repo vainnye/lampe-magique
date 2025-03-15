@@ -1,6 +1,7 @@
 package com.example.lampeMagique;
 
 import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,6 +9,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.security.InvalidParameterException;
+import java.util.Objects;
 
 import kotlin.NotImplementedError;
 
@@ -15,7 +17,9 @@ public class RgbColor implements Parcelable {
     private int red;
     private int green;
     private int blue;
-    
+
+    private final static RgbColor NULL_OBJECT = null;
+
     private enum COMPS {
         RED, GREEN, BLUE;
         public static final int MAX = 255;
@@ -28,16 +32,19 @@ public class RgbColor implements Parcelable {
         blue = COMPS.MAX;
     }
     public RgbColor(int red, int blue, int green) {
-        setColor(Color.rgb(red, green, blue));
+        setTo(Color.rgb(red, green, blue));
     }
     public RgbColor(int color) {
-        setColor(color);
+        setTo(color);
+    }
+    public RgbColor(@NonNull RgbColor color) {
+        setTo(color);
     }
     public RgbColor(String colorString) {
-        setColor(Color.parseColor(colorString));
+        setTo(Color.parseColor(colorString));
     }
     public RgbColor(float hue, float sat, float val) {
-        setColor(Color.HSVToColor( new float[]{hue, sat, val} ));
+        setTo(Color.HSVToColor( new float[]{hue, sat, val} ));
     }
 
     protected RgbColor(Parcel in) {
@@ -45,7 +52,6 @@ public class RgbColor implements Parcelable {
         green = in.readInt();
         blue = in.readInt();
     }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(red);
@@ -70,10 +76,33 @@ public class RgbColor implements Parcelable {
         }
     };
 
-    public void setColor(int color) {
+    public void setTo(@NonNull RgbColor color) {
+        setRed(color.red());
+        setGreen(color.green());
+        setBlue(color.blue());
+    }
+
+    public void setTo(int color) {
         setRed(Color.red(color));
         setGreen(Color.green(color));
         setBlue(Color.blue(color));
+    }
+
+    public RgbColor copy() {
+        return new RgbColor(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RgbColor rgbColor = (RgbColor) o;
+        return red == rgbColor.red && green == rgbColor.green && blue == rgbColor.blue;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(red, green, blue);
     }
 
     private int getComponent(@NonNull COMPS c) {

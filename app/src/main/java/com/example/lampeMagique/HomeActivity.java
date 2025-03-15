@@ -3,7 +3,6 @@ package com.example.lampeMagique;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -48,7 +47,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         else if(v.getId() == R.id.btnBlue)  color = Color.BLUE;
         else return;
 
-        intent.putExtra(MainActivity.K_SAVED_COLOR, new RgbColor(color));
+        intent.putExtra(MainActivity.K_SAVED_COULEUR, new RgbColor(color));
         startActivity(intent);
     }
 
