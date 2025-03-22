@@ -16,39 +16,32 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/buttonsLayout"
-        android:weightSum="3"
         android:padding="20dp">
 
         <Button
             android:id="@+id/btnLampe"
+            style="@style/lampeMagique.inset.none"
+            app:shapeAppearanceOverlay="@style/lampeMagique.round.all"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="5dp"
             android:backgroundTint="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/spaceBottom"
+            app:layout_constraintBottom_toTopOf="@id/tvServerResponse"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spaceTop"
-            app:layout_constraintVertical_weight="20"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Space
-            android:id="@+id/spaceTop"
+
+        <TextView
+            android:id="@+id/tvServerResponse"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/btnLampe"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_weight="1"/>
-        <Space
-            android:id="@+id/spaceBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/server_response"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnLampe"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_weight="1"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLampe" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +55,8 @@
 
         <Button
             android:id="@+id/btnMoreRed"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/lampeMagique.inset.none"
+            app:shapeAppearanceOverlay="@style/lampeMagique.round.none"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:backgroundTint="@color/red"
@@ -76,7 +70,8 @@
 
         <Button
             android:id="@+id/btnLessRed"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/lampeMagique.inset.none"
+            app:shapeAppearanceOverlay="@style/lampeMagique.round.topLeft"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:backgroundTint="@color/red"
@@ -90,7 +85,8 @@
 
         <Button
             android:id="@+id/btnMoreGreen"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/lampeMagique.inset.none"
+            app:shapeAppearanceOverlay="@style/lampeMagique.round.none"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:backgroundTint="@color/green"
@@ -103,7 +99,8 @@
 
         <Button
             android:id="@+id/btnLessGreen"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/lampeMagique.inset.none"
+            app:shapeAppearanceOverlay="@style/lampeMagique.round.none"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:backgroundTint="@color/green"
@@ -116,7 +113,8 @@
 
         <Button
             android:id="@+id/btnMoreBlue"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/lampeMagique.inset.none"
+            app:shapeAppearanceOverlay="@style/lampeMagique.round.none"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:backgroundTint="@color/blue"
@@ -129,7 +127,8 @@
 
         <Button
             android:id="@+id/btnLessBlue"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/lampeMagique.inset.none"
+            app:shapeAppearanceOverlay="@style/lampeMagique.round.bottomLeft"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:backgroundTint="@color/blue"

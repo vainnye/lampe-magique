@@ -7,24 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
+    <TextView
+        android:id="@+id/tvApplicationLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/application_language"
+        android:paddingHorizontal="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/locale_selector"
+        app:layout_constraintEnd_toStartOf="@id/locale_selector"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/locale_selector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:dropDownWidth="wrap_content"
+        android:padding="0dp"
+        android:prompt="@string/choose_ui_language"
+        android:spinnerMode="dialog"
+        android:tooltipText="@string/language_shown"
+        app:layout_constraintStart_toEndOf="@id/tvApplicationLanguage"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Lampe Magique"
+        android:text="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="50dp"/>
 
     <TextView
         android:id="@+id/tvShortDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="🔄📱 trounez votre téléphoen pour voir les détails sur les fonctionnalités de l'application"
+        android:text="@string/turn_your_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAppName"
@@ -35,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="auteur : Vianney Jacquemot"
+        android:text="@string/author_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvShortDescription" />
@@ -44,8 +66,8 @@
         android:id="@+id/tvChoseDefaultColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pour commencer, choisissez une couleur :"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/please_choose_a_color"
+        app:layout_constraintTop_toBottomOf="@id/tvAuthor"
         app:layout_constraintBottom_toTopOf="@id/btnGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,41 +75,45 @@
 
     <Button
         android:id="@+id/btnRed"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/lampeMagique.inset.none"
+        app:shapeAppearanceOverlay="@style/lampeMagique.round.left"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="@color/red"
-        android:text="Rouge"
+        android:text="@string/red"
         app:layout_constraintBottom_toBottomOf="@id/btnGreen"
         app:layout_constraintEnd_toStartOf="@id/btnGreen"
-        app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="@id/btnGreen"
         app:layout_constraintDimensionRatio="1.5" />
 
     <Button
         android:id="@+id/btnGreen"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/lampeMagique.inset.none"
+        app:shapeAppearanceOverlay="@style/lampeMagique.round.none"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
-        android:text="Vert"
+        android:text="@string/green"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnBlue"
-        app:layout_constraintStart_toEndOf="@id/btnRed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvChoseDefaultColor"
         android:paddingVertical="40dp"
         app:layout_constraintDimensionRatio="1.5" />
 
     <Button
         android:id="@+id/btnBlue"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/lampeMagique.inset.none"
+        app:shapeAppearanceOverlay="@style/lampeMagique.round.right"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="@color/blue"
-        android:text="Bleu"
+        android:text="@string/blue"
         app:layout_constraintBottom_toBottomOf="@id/btnGreen"
-        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintTop_toTopOf="@id/btnGreen"
         app:layout_constraintStart_toEndOf="@id/btnGreen"
         app:layout_constraintDimensionRatio="1.5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

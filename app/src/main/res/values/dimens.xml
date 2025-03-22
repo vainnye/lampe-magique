@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="cornerSize.small" type="dimen">30dp</item>
+    <item name="cornerSize.big" type="dimen">50dp</item>
+    <item name="cornerSize.selected" type="dimen">@dimen/cornerSize.big</item>
+</resources>

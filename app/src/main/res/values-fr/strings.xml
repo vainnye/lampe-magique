@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="current_language_name">@string/lang_fr</string>
+    <string name="choose_ui_language">choissez la langue de l\'interface</string>
+    <string name="language_was_set_to">langue de l\'appli : %s</string>
+
+    <string name="app_name">lampe magique</string>
+    <string name="author_info">auteur : Vianney JACQUEMOT</string>
+    <string name="features_desc">
+        \tFonctionnalités :\n
+        • un clic sur la lampe déclenche une animation\n
+        • un simple clic sur la lampe arrête l\'animation\n
+        • un long clic sur la lampe réinitialise sa couleur celle précédant l\'animation\n
+        • en dehors de l\'animation avec un long clic, la lampe revient à couleur que vous avez sélectionné avec les boutons\n
+        • un long clic supplémentaire et la lampe revient à la couleur que vous avez sélectionné ci dessous\n
+        \n
+        l\'animation change la couleur de toutes le lampes sur le serveur à la fois\n
+        les boutons changent seulement la couleur de la lampe 5 (celle du centre)
+    </string>
+    <string name="turn_your_phone">🔄📱 tournez votre téléphone pour voir les détails sur les fonctionnalités de l\'application</string>
+    <string name="please_choose_a_color">Pour commencer, choisissez une couleur :</string>
+    <string name="red">rouge</string>
+    <string name="green">vert</string>
+    <string name="blue">bleu</string>
+
+    <string name="server_response">réponse serveur : [%s]</string>
+    <string name="more_red">+ rouge</string>
+    <string name="more_green">+ vert</string>
+    <string name="more_blue">+ bleu</string>
+    <string name="less_red">+ rouge</string>
+    <string name="less_green">+ vert</string>
+    <string name="less_blue">+ bleu</string>
+
+    <string name="back_to_initial_color">back to the initial color</string>
+    <string name="back_to_selected_color">back to the selected color</string>
+    <string name="back_to_color_before_animation">back to color before animation</string>
+</resources>

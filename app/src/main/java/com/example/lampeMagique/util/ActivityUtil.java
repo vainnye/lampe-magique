@@ -1,6 +1,5 @@
-package com.example.lampeMagique;
+package com.example.lampeMagique.util;
 
-import android.app.Activity;
 import android.os.Build;
 import android.view.WindowManager;
 
@@ -9,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.lampeMagique.R;
 
 public class ActivityUtil {
     public static void initWindowMode(AppCompatActivity activity) {

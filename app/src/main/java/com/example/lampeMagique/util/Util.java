@@ -1,4 +1,4 @@
-package com.example.lampeMagique;
+package com.example.lampeMagique.util;
 
 public class Util {
     // si la deuxième valeur est null, cette fonction renvoie la première valeur

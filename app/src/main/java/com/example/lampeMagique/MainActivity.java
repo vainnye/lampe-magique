@@ -1,25 +1,23 @@
 package com.example.lampeMagique;
 
-import static com.example.lampeMagique.Util.returnNotNull;
+import static com.example.lampeMagique.util.Util.returnNotNull;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import com.example.lampeMagique.model.Couleur;
+import com.example.lampeMagique.task.ServerTask;
+import com.example.lampeMagique.util.ActivityUtil;
+import com.example.lampeMagique.util.Dbg;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
@@ -28,20 +26,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String K_SAVED_COULEUR_SELECTIONNEE = "K_SAVED_COULEUR_SELECTIONNEE";
     public static final String K_SAVED_COULEUR_AVANT_ANIMATION = "K_SAVED_COULEUR_AVANT_ANIMATION";
     public static final String K_SAVED_ANIMATION_STATE = "K_SAVED_ANIMATION_STATE";
+    public static final int MAX_COLOR_GAP = 16;
 
     private static final int DFT_COULEUR_LAMPE = Color.BLACK;
 
-    private final Handler handler = new Handler(Looper.getMainLooper());
-
-    private RgbColor couleurLampe;
-    private RgbColor couleurLampeSelectionneeAvecBoutons;
-    private RgbColor couleurLampeChoixInitial;
-    private RgbColor lampColorBeforeAnimation;
-    private RgbColor lampColorOnExitAnimation;
+    private Couleur couleurLampe;
+    private Couleur couleurLampeSelectionneeAvecBoutons;
+    private Couleur couleurLampeChoixInitial;
+    private Couleur lampColorBeforeAnimation;
+    private Couleur lampColorOnExitAnimation;
     private volatile int animationStateAtTheEnd;
-    private String texteLampe() { return "R:"+couleurLampe.red()+" G:"+couleurLampe.green()+" B:"+couleurLampe.blue(); }
-    private ThreadAnimation threadAnimation;
-    private OneTimeServerThread serverThread;
+    private String texteLampe() {
+        return  getString(R.string.lamp_color_rgb, couleurLampe.red(), couleurLampe.green(), couleurLampe.blue());
+    }
+    private Thread threadAnimation;
+    private Thread serverThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +51,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ActivityUtil.initWindowMode(this);
 
         if(getIntent() != null) {
-            couleurLampe = (RgbColor) getIntent().getParcelableExtra(K_SAVED_COULEUR);
-            couleurLampeChoixInitial = (RgbColor) getIntent().getParcelableExtra(K_SAVED_COULEUR_CHOIX_INITIAL);
+            couleurLampe = (Couleur) getIntent().getParcelableExtra(K_SAVED_COULEUR);
+            couleurLampeChoixInitial = (Couleur) getIntent().getParcelableExtra(K_SAVED_COULEUR_CHOIX_INITIAL);
         }
         if(savedInstanceState != null) {
-            couleurLampe = (RgbColor) returnNotNull(couleurLampe, savedInstanceState.getParcelable(K_SAVED_COULEUR));
-            couleurLampeSelectionneeAvecBoutons = (RgbColor) returnNotNull(couleurLampeSelectionneeAvecBoutons, savedInstanceState.getParcelable(K_SAVED_COULEUR_SELECTIONNEE));
-            couleurLampeChoixInitial = (RgbColor) returnNotNull(couleurLampeChoixInitial, savedInstanceState.getParcelable(K_SAVED_COULEUR_CHOIX_INITIAL));
-            lampColorBeforeAnimation = (RgbColor) returnNotNull(lampColorBeforeAnimation, savedInstanceState.getParcelable(K_SAVED_COULEUR_AVANT_ANIMATION));
+            couleurLampe = (Couleur) returnNotNull(couleurLampe, savedInstanceState.getParcelable(K_SAVED_COULEUR));
+            couleurLampeSelectionneeAvecBoutons = (Couleur) returnNotNull(couleurLampeSelectionneeAvecBoutons, savedInstanceState.getParcelable(K_SAVED_COULEUR_SELECTIONNEE));
+            couleurLampeChoixInitial = (Couleur) returnNotNull(couleurLampeChoixInitial, savedInstanceState.getParcelable(K_SAVED_COULEUR_CHOIX_INITIAL));
+            lampColorBeforeAnimation = (Couleur) returnNotNull(lampColorBeforeAnimation, savedInstanceState.getParcelable(K_SAVED_COULEUR_AVANT_ANIMATION));
             animationStateAtTheEnd = savedInstanceState.getInt(K_SAVED_ANIMATION_STATE);
             if(animationStateAtTheEnd > 0) {
                 reprendreAnimation(animationStateAtTheEnd);
@@ -67,14 +66,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(couleurLampe == null)
-            couleurLampe = new RgbColor(DFT_COULEUR_LAMPE);
+            couleurLampe = new Couleur(DFT_COULEUR_LAMPE);
         if(couleurLampeChoixInitial == null)
             couleurLampeChoixInitial = couleurLampe.copy();
 
         couleurLampeSelectionneeAvecBoutons = couleurLampe.copy();
         lampColorOnExitAnimation = couleurLampe.copy();
 
-        colorierLampe(couleurLampe.toIntColor());
+        paintLamps(couleurLampe, ServerTask.Cible.DFT_LAMP);
         Button btnLampe = findViewById(R.id.btnLampe);
         btnLampe.setOnClickListener(this);
         btnLampe.setOnLongClickListener(this);
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else if(id == R.id.btnMoreBlue || id == R.id.btnLessBlue) {
                 color = Color.BLUE;
             }
-            btn.setTextColor(RgbColor.textColorToContrast(color));
+            btn.setTextColor(Couleur.textColorToContrast(color));
         }
     }
 
@@ -123,24 +122,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             }
 
-            int color;
-            int colorGap = 16;
-
             if (v.getId() == R.id.btnMoreRed)
-                couleurLampe.addRed(colorGap);
+                couleurLampe.addRed(MAX_COLOR_GAP);
             else if (v.getId() == R.id.btnLessRed)
-                couleurLampe.rmvRed(colorGap);
+                couleurLampe.rmvRed(MAX_COLOR_GAP);
             else if (v.getId() == R.id.btnMoreGreen)
-                couleurLampe.addGreen(colorGap);
+                couleurLampe.addGreen(MAX_COLOR_GAP);
             else if (v.getId() == R.id.btnLessGreen)
-                couleurLampe.rmvGreen(colorGap);
+                couleurLampe.rmvGreen(MAX_COLOR_GAP);
             else if (v.getId() == R.id.btnMoreBlue)
-                couleurLampe.addBlue(colorGap);
+                couleurLampe.addBlue(MAX_COLOR_GAP);
             else if (v.getId() == R.id.btnLessBlue)
-                couleurLampe.rmvBlue(colorGap);
+                couleurLampe.rmvBlue(MAX_COLOR_GAP);
 
             couleurLampeSelectionneeAvecBoutons.setTo(couleurLampe);
-            colorierLampe(couleurLampe.toIntColor());
+            paintLamps(couleurLampe, ServerTask.Cible.DFT_LAMP);
             return;
         }
         else {
@@ -159,16 +155,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId() == R.id.btnLampe) {
             if(threadAnimation == null) {
                 Dbg.logInMethod("[clic long]: retour à la couleur initiale");
-                if(!couleurLampe.equals(couleurLampeSelectionneeAvecBoutons))
+                if(!couleurLampe.equals(couleurLampeSelectionneeAvecBoutons)) {
                     couleurLampe.setTo(couleurLampeSelectionneeAvecBoutons);
-                else
+                    Toast.makeText(this /* MyActivity */, getString(R.string.back_to_selected_color), Toast.LENGTH_SHORT).show();
+                }
+                else {
                     couleurLampe.setTo(couleurLampeChoixInitial);
-                colorierLampe(couleurLampe.toIntColor());
+                    Toast.makeText(this /* MyActivity */, getString(R.string.back_to_initial_color), Toast.LENGTH_SHORT).show();
+                }
+                paintLamps(couleurLampe, ServerTask.Cible.DFT_LAMP);
                 return true;
             } else {
                 Dbg.logInMethod("[clic long]: désactivation de l'animation");
                 arreterAnimation(lampColorBeforeAnimation);
                 animationStateAtTheEnd = 0;
+                Toast.makeText(this /* MyActivity */, getString(R.string.back_to_color_before_animation), Toast.LENGTH_SHORT).show();
                 return true;
             }
         }
@@ -176,13 +177,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-    private void colorierLampe(int nouvCouleur) {
+    private void paintOnlyInAppLamp(Couleur nouvCouleur) {
         Button lampe = findViewById(R.id.btnLampe);
-        lampe.setBackgroundColor(nouvCouleur);
+        lampe.setBackgroundColor(nouvCouleur.toIntColor());
         lampe.setText(texteLampe());
-        lampe.setTextColor(RgbColor.textColorToContrast(nouvCouleur));
+        lampe.setTextColor(Couleur.textColorToContrast(nouvCouleur.toIntColor()));
+    }
+
+    private void paintLamps(Couleur nouvCouleur, ServerTask.Cible cible) {
+        paintOnlyInAppLamp(nouvCouleur);
         if(serverThread != null) serverThread.interrupt();
-        serverThread = new OneTimeServerThread(couleurLampe.red(), couleurLampe.green(), couleurLampe.blue());
+        serverThread = new Thread( new ServerTask(couleurLampe, cible, (response) -> {
+            ((TextView) findViewById(R.id.tvServerResponse)).setText(
+                    getString(R.string.server_response,response)
+            );
+        }));
         serverThread.start();
     }
 
@@ -201,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void demarrerAnimation() {
         lampColorBeforeAnimation = couleurLampe.copy();
+        lampColorOnExitAnimation = couleurLampe.copy();
         threadAnimation = new ThreadAnimation(couleurLampe);
         threadAnimation.start();
     }
@@ -210,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         threadAnimation.start();
     }
 
-    public void arreterAnimation(RgbColor colorOnExit) {
+    public void arreterAnimation(Couleur colorOnExit) {
         lampColorOnExitAnimation.setTo(colorOnExit);
         interrompreAnimation();
         animationStateAtTheEnd = 0;
@@ -226,18 +236,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     private class ThreadAnimation extends Thread {
-        private RgbColor couleurInitiale;
+        private final Handler handler = new Handler(Looper.getMainLooper());
+        private Couleur couleurInitiale;
         private int animationState;
         private static final int MAX_DEG_HUE = 720;
         private static final int MILLIS_DELAY = 35;
 
-        public ThreadAnimation(RgbColor couleurLampe) {
+        public ThreadAnimation(Couleur couleurLampe) {
             this.couleurInitiale = couleurLampe;
             this.animationState = 0;
         }
-        public ThreadAnimation(RgbColor couleurLampe, int animationState) {
+        public ThreadAnimation(Couleur couleurLampe, int animationState) {
             this.couleurInitiale = couleurLampe;
             this.animationState = animationState;
         }
@@ -262,19 +272,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Dbg.logInMethod("thread d'animation interrompu durant Thread.sleep()");
                 }
             }
+
             animationStateAtTheEnd = animationState;
             Dbg.logInMethod("changement de la couleur à couleurLampeApresAnimation : "+couleurLampe);
             couleurLampe.setTo(lampColorOnExitAnimation);
-            colorierLampe(couleurLampe.toIntColor());
+            paintLamps(couleurLampe, ServerTask.Cible.DFT_LAMP);
             threadAnimation = null;
         }
 
         private void handleChangeCouleurLampe(int nouvCouleur) {
             handler.post(() -> {
-                couleurLampe = new RgbColor(nouvCouleur);
-                colorierLampe(nouvCouleur);
+                couleurLampe = new Couleur(nouvCouleur);
+                paintLamps(couleurLampe, ServerTask.Cible.ALL_LAMPS);
             });
         }
     }
-
 }

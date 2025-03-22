@@ -1,3 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">lampe magique</string>
+    <string name="current_language_name">@string/lang_en</string>
+    <string name="lang_en" translatable="false">english</string>
+    <string name="lang_fr" translatable="false">français</string>
+    <string-array name="locale_array" translatable="false">
+        <item>@string/lang_en</item>
+        <item>@string/lang_fr</item>
+    </string-array>
+    <string name="language_shown" translatable="false">language shown</string>
+    <string name="application_language" translatable="false">🌐 app language</string>
+    <string name="choose_ui_language">choose UI language</string>
+    <string name="language_was_set_to">language was set to %s</string>
+
+    <string name="app_name">Genie</string>
+    <string name="author_info">author : Vianney JACQUEMOT</string>
+    <string name="features_desc">
+        \tFeatures :\n
+        • a click on the lamp button triggers an animation\n
+        • a single click on the it stops the animation\n
+        • a long click resets its color to that of the previous animation\n
+        • outside the animation, with a long click, the lamp returns to the color you selected with the buttons\n
+        • an additional long click and the lamp returns to the color you selected below\n
+        \n
+        the animation changes the color of all the lamps on the server at once\n
+        the buttons only change the color of lamp no 5 (the central one)
+    </string>
+    <string name="turn_your_phone">🔄📱 turn your phone around to see details of the application\'s features</string>
+    <string name="please_choose_a_color">Let\'s choose a color to begin with !</string>
+    <string name="red">red</string>
+    <string name="green">green</string>
+    <string name="blue">blue</string>
+
+    <string name="lamp_color_rgb" translatable="false">R:%d G:%d B:%d</string>
+    <string name="server_response">server response: [%s]</string>
+    <string name="more_red">+ red</string>
+    <string name="more_green">+ green</string>
+    <string name="more_blue">+ blue</string>
+    <string name="less_red">- red</string>
+    <string name="less_green">- green</string>
+    <string name="less_blue">- blue</string>
+
+    <string name="back_to_initial_color">couleur initiale restaurée</string>
+    <string name="back_to_selected_color">couleur sélectionnée restaurée</string>
+    <string name="back_to_color_before_animation">couleur avant animation restaurée</string>
 </resources>

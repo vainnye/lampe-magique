@@ -1,9 +1,9 @@
-package com.example.lampeMagique;
+package com.example.lampeMagique.task;
 
 import android.annotation.SuppressLint;
-import android.graphics.ColorSpace;
-import android.os.Looper;
 import android.util.Log;
+
+import com.example.lampeMagique.model.Couleur;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,16 +11,19 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
-public class ServerThread extends Thread {
+
+/**
+ * idée abandonnée de garder un thread en arrière plan tout le long de la vie de MainActivity
+ * pour éviter d'en créer un à chaque fois que je veux envoyer un message au serveur
+ */
+public class ServerDaemon extends Thread {
     private static final String SERVER_NAME = "chadok.info";
     private static final int SERVER_PORT = 9998;
     private static final int NO_LAMP = 5;
-    private final RgbColor couleurLampe;
+    private final Couleur couleurLampe;
 
-    public ServerThread(RgbColor couleurLampe) {
+    public ServerDaemon(Couleur couleurLampe) {
         this.couleurLampe = couleurLampe;
     }
 
@@ -47,7 +50,7 @@ public class ServerThread extends Thread {
             writer.close();
             reader.close();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            Log.e("serveur de la lampe", "exception UnknownHostException", e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="lampeMagique.inset.none" parent="">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+    </style>
+    <style name="lampeMagique.round.all.auto" parent="">
+        <item name="cornerFamily">rounded</item>
+    </style>
+    <style name="lampeMagique.round.all" parent="lampeMagique.round.all.auto">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/cornerSize.selected</item>
+    </style>
+    <style name="lampeMagique.round.none" parent="lampeMagique.round.all.auto">
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="lampeMagique.round.left.auto" parent="lampeMagique.round.all.auto">
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+    <style name="lampeMagique.round.right.auto" parent="lampeMagique.round.all">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+    <style name="lampeMagique.round.top.auto" parent="lampeMagique.round.all.auto">
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+    <style name="lampeMagique.round.bottom.auto" parent="lampeMagique.round.all">
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+    </style>
+    <style name="lampeMagique.round.topLeft.auto" parent="lampeMagique.round.top.auto">
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+    <style name="lampeMagique.round.topRight.auto" parent="lampeMagique.round.top.auto">
+        <item name="cornerSizeTopLeft">0dp</item>
+    </style>
+    <style name="lampeMagique.round.bottomLeft.auto" parent="lampeMagique.round.bottom.auto">
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+    <style name="lampeMagique.round.bottomRight.auto" parent="lampeMagique.round.bottom.auto">
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="lampeMagique.round.top" parent="lampeMagique.round.all">
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+    <style name="lampeMagique.round.bottom" parent="lampeMagique.round.all">
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+    </style>
+    <style name="lampeMagique.round.left" parent="lampeMagique.round.all">
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+    <style name="lampeMagique.round.right" parent="lampeMagique.round.all">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+    <style name="lampeMagique.round.topLeft" parent="lampeMagique.round.none">
+        <item name="cornerSizeTopLeft">@dimen/cornerSize.selected</item>
+    </style>
+    <style name="lampeMagique.round.topRight" parent="lampeMagique.round.none">
+        <item name="cornerSizeTopRight">@dimen/cornerSize.selected</item>
+    </style>
+    <style name="lampeMagique.round.bottomLeft" parent="lampeMagique.round.none">
+        <item name="cornerSizeBottomLeft">@dimen/cornerSize.selected</item>
+    </style>
+    <style name="lampeMagique.round.bottomRight" parent="lampeMagique.round.none">
+        <item name="cornerSizeBottomRight">@dimen/cornerSize.selected</item>
+    </style>
+</resources>
