@@ -27,9 +27,9 @@
     <string name="more_red">+ rouge</string>
     <string name="more_green">+ vert</string>
     <string name="more_blue">+ bleu</string>
-    <string name="less_red">+ rouge</string>
-    <string name="less_green">+ vert</string>
-    <string name="less_blue">+ bleu</string>
+    <string name="less_red">- rouge</string>
+    <string name="less_green">- vert</string>
+    <string name="less_blue">- bleu</string>
 
     <string name="back_to_initial_color">back to the initial color</string>
     <string name="back_to_selected_color">back to the selected color</string>
