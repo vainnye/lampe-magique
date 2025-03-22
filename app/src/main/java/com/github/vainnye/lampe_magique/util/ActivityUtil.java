@@ -1,4 +1,4 @@
-package com.example.lampeMagique.util;
+package com.github.vainnye.lampe_magique.util;
 
 import android.os.Build;
 import android.view.WindowManager;
@@ -9,7 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.lampeMagique.R;
+import com.github.vainnye.lampe_magique.R;
 
 public class ActivityUtil {
     public static void initWindowMode(AppCompatActivity activity) {

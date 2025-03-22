@@ -1,4 +1,4 @@
-package com.example.lampeMagique.util;
+package com.github.vainnye.lampe_magique.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -7,9 +7,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
-import com.example.lampeMagique.R;
+import com.github.vainnye.lampe_magique.R;
 
 import java.util.Locale;
 

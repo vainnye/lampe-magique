@@ -1,9 +1,9 @@
-package com.example.lampeMagique.task;
+package com.github.vainnye.lampe_magique.task;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import com.example.lampeMagique.model.Couleur;
+import com.github.vainnye.lampe_magique.model.Couleur;
 
 import java.io.BufferedReader;
 import java.io.IOException;

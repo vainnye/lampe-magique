@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.lampeMagique"
+    namespace = "com.github.vainnye.lampe_magique"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.lampeMagique"
+        applicationId = "com.github.vainnye.lampe_magique"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.example.lampeMagique.model;
+package com.github.vainnye.lampe_magique.model;
 
 import android.graphics.Color;
 import android.os.Parcel;

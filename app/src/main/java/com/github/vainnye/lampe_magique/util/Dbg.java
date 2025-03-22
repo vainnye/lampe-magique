@@ -1,4 +1,4 @@
-package com.example.lampeMagique.util;
+package com.github.vainnye.lampe_magique.util;
 
 import android.util.Log;
 

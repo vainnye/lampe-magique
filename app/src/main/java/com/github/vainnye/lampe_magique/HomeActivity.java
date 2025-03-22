@@ -1,4 +1,4 @@
-package com.example.lampeMagique;
+package com.github.vainnye.lampe_magique;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,9 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 
-import com.example.lampeMagique.model.Couleur;
-import com.example.lampeMagique.util.ActivityUtil;
-import com.example.lampeMagique.util.Dbg;
+import com.github.vainnye.lampe_magique.model.Couleur;
+import com.github.vainnye.lampe_magique.util.ActivityUtil;
+import com.github.vainnye.lampe_magique.util.Dbg;
 
 import java.util.Locale;
 
@@ -138,7 +138,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         Locale newLocale = new Locale(localeCode); // Change to desired locale
-        if(!AppCompatDelegate.getApplicationLocales().get(0).toLanguageTag().equals(newLocale.toLanguageTag())) {
+        Locale appLocale = AppCompatDelegate.getApplicationLocales().get(0);
+        if(appLocale == null || !appLocale.toLanguageTag().equals(newLocale.toLanguageTag())) {
             AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(newLocale));
             localeHasChanged = true;
         }

@@ -1,6 +1,6 @@
-package com.example.lampeMagique;
+package com.github.vainnye.lampe_magique;
 
-import static com.example.lampeMagique.util.Util.returnNotNull;
+import static com.github.vainnye.lampe_magique.util.Util.returnNotNull;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lampeMagique.model.Couleur;
-import com.example.lampeMagique.task.ServerTask;
-import com.example.lampeMagique.util.ActivityUtil;
-import com.example.lampeMagique.util.Dbg;
+import com.github.vainnye.lampe_magique.model.Couleur;
+import com.github.vainnye.lampe_magique.task.ServerTask;
+import com.github.vainnye.lampe_magique.util.ActivityUtil;
+import com.github.vainnye.lampe_magique.util.Dbg;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 

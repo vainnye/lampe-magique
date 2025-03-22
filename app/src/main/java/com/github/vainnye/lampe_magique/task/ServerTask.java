@@ -1,14 +1,11 @@
-package com.example.lampeMagique.task;
+package com.github.vainnye.lampe_magique.task;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.example.lampeMagique.model.Couleur;
-import com.example.lampeMagique.util.UIChanger;
+import com.github.vainnye.lampe_magique.model.Couleur;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,17 +14,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Random;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RunnableFuture;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class ServerTask implements Runnable {
     private static final String SERVER_NAME = "chadok.info";
