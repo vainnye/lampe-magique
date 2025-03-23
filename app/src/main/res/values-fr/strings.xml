@@ -31,7 +31,7 @@
     <string name="less_green">- vert</string>
     <string name="less_blue">- bleu</string>
 
-    <string name="back_to_initial_color">back to the initial color</string>
-    <string name="back_to_selected_color">back to the selected color</string>
-    <string name="back_to_color_before_animation">back to color before animation</string>
+    <string name="back_to_initial_color">couleur initiale restaurée</string>
+    <string name="back_to_selected_color">couleur sélectionnée restaurée</string>
+    <string name="back_to_color_before_animation">couleur avant animation restaurée</string>
 </resources>
