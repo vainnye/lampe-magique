@@ -19,9 +19,12 @@ import com.github.vainnye.lampe_magique.task.ServerTask;
 import com.github.vainnye.lampe_magique.util.ActivityUtil;
 import com.github.vainnye.lampe_magique.util.Dbg;
 
+import org.jetbrains.annotations.NotNull;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
     public static final String K_SAVED_COULEUR = "K_SAVED_COULEUR";
+    public static final String K_SAVED_SWAPPABLE_COULEUR = "K_SWAPPABLE_COULEUR";
     public static final String K_SAVED_COULEUR_CHOIX_INITIAL = "K_SAVED_COULEUR_CHOIX_INITIAL";
     public static final String K_SAVED_COULEUR_SELECTIONNEE = "K_SAVED_COULEUR_SELECTIONNEE";
     public static final String K_SAVED_COULEUR_AVANT_ANIMATION = "K_SAVED_COULEUR_AVANT_ANIMATION";
@@ -29,8 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int MAX_COLOR_GAP = 16;
 
     private static final int DFT_COULEUR_LAMPE = Color.BLACK;
+    private static final int DFT_COULEUR_SWAPPABLE = R.color.darkGreen;
 
-    private Couleur couleurLampe;
+    private Couleur couleurLampe, couleurSwappable;
     private Couleur couleurLampeSelectionneeAvecBoutons;
     private Couleur couleurLampeChoixInitial;
     private Couleur lampColorBeforeAnimation;
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(getIntent() != null) {
             couleurLampe = (Couleur) getIntent().getParcelableExtra(K_SAVED_COULEUR);
+            couleurSwappable = (Couleur) getIntent().getParcelableExtra(K_SAVED_SWAPPABLE_COULEUR);
             couleurLampeChoixInitial = (Couleur) getIntent().getParcelableExtra(K_SAVED_COULEUR_CHOIX_INITIAL);
         }
         if(savedInstanceState != null) {
@@ -67,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(couleurLampe == null)
             couleurLampe = new Couleur(DFT_COULEUR_LAMPE);
+        if(couleurSwappable == null)
+            couleurSwappable = new Couleur(DFT_COULEUR_SWAPPABLE);
         if(couleurLampeChoixInitial == null)
             couleurLampeChoixInitial = couleurLampe.copy();
 
@@ -78,19 +85,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLampe.setOnClickListener(this);
         btnLampe.setOnLongClickListener(this);
 
+        Button btnSwap = findViewById(R.id.btnExchange);
+        paintButton(btnSwap, couleurSwappable, null);
+        btnSwap.setOnClickListener(this);
+
         Button btn;
+        Couleur coulTemp = new Couleur();
         for(int id : new int[]{R.id.btnMoreRed, R.id.btnLessRed, R.id.btnMoreGreen, R.id.btnLessGreen, R.id.btnMoreBlue, R.id.btnLessBlue}) {
             btn = findViewById(id);
             btn.setOnClickListener(this);
-            int color = Color.WHITE;
+            coulTemp.setTo(Color.WHITE);
             if(id == R.id.btnMoreRed || id == R.id.btnLessRed){
-                color = Color.RED;
+                coulTemp.setTo(Color.RED);
             } else if(id == R.id.btnMoreGreen || id == R.id.btnLessGreen) {
-                color = Color.GREEN;
+                coulTemp.setTo(Color.GREEN);
             } else if(id == R.id.btnMoreBlue || id == R.id.btnLessBlue) {
-                color = Color.BLUE;
+                coulTemp.setTo(Color.BLUE);
             }
-            btn.setTextColor(Couleur.textColorToContrast(color));
+            paintButton(btn, coulTemp, null);
         }
     }
 
@@ -108,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             outState.putInt(K_SAVED_ANIMATION_STATE, animationStateAtTheEnd);
         }
 
+        outState.putParcelable(K_SAVED_SWAPPABLE_COULEUR, couleurSwappable);
         outState.putParcelable(K_SAVED_COULEUR, couleurLampe);
         outState.putParcelable(K_SAVED_COULEUR_CHOIX_INITIAL, couleurLampeChoixInitial);
         outState.putParcelable(K_SAVED_COULEUR_SELECTIONNEE, couleurLampeSelectionneeAvecBoutons);
@@ -120,6 +133,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (v.getId() == R.id.btnLampe) {
                 demarrerAnimation();
                 return;
+            }
+            if (v.getId() == R.id.btnExchange) {
+                couleurLampeSelectionneeAvecBoutons = couleurSwappable;
+                couleurSwappable = couleurLampe;
+                couleurLampe = couleurLampeSelectionneeAvecBoutons;
+
+                paintButton(findViewById(R.id.btnExchange), couleurSwappable, null);
+                paintLamps(couleurLampe, ServerTask.Cible.DFT_LAMP);
             }
 
             if (v.getId() == R.id.btnMoreRed)
@@ -177,11 +198,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
+    private void paintButton(Button btn, Couleur nouvCouleur, String text) {
+        btn.setBackgroundColor(nouvCouleur.toIntColor());
+        if(text != null)
+            btn.setText(text);
+        btn.setTextColor(Couleur.textColorToContrast(nouvCouleur.toIntColor()));
+    }
+
     private void paintOnlyInAppLamp(Couleur nouvCouleur) {
-        Button lampe = findViewById(R.id.btnLampe);
-        lampe.setBackgroundColor(nouvCouleur.toIntColor());
-        lampe.setText(texteLampe());
-        lampe.setTextColor(Couleur.textColorToContrast(nouvCouleur.toIntColor()));
+        paintButton(findViewById(R.id.btnLampe), nouvCouleur, texteLampe());
     }
 
     private void paintLamps(Couleur nouvCouleur, ServerTask.Cible cible) {

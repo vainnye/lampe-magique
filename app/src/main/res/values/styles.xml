@@ -77,4 +77,9 @@
     <style name="lampeMagique.round.bottomRight" parent="lampeMagique.round.none">
         <item name="cornerSizeBottomRight">@dimen/cornerSize.selected</item>
     </style>
+
+    <style name="lampeMagique.round.btnExchange" parent="lampeMagique.round.none">
+        <item name="cornerSizeBottomLeft">@dimen/cornerSize.selected</item>
+        <item name="cornerSizeTopRight">@dimen/cornerSize.selected</item>
+    </style>
 </resources>

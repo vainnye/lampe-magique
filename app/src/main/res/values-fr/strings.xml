@@ -23,6 +23,7 @@
     <string name="green">vert</string>
     <string name="blue">bleu</string>
 
+    <string name="swap_colors">🔄</string>
     <string name="server_response">réponse serveur : [%s]</string>
     <string name="more_red">+ rouge</string>
     <string name="more_green">+ vert</string>

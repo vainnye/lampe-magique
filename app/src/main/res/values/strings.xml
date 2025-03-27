@@ -31,6 +31,7 @@
     <string name="green">green</string>
     <string name="blue">blue</string>
 
+    <string name="swap_colors">SWAP</string>
     <string name="lamp_color_rgb" translatable="false">R:%d G:%d B:%d</string>
     <string name="server_response">server response: [%s]</string>
     <string name="more_red">+ red</string>
